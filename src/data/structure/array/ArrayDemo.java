@@ -81,6 +81,68 @@ public class ArrayDemo {
         return Arrays.copyOfRange(arr1, 0, index3);
     }
 
+    /**
+     * #14 最长公共前缀
+     * 编写一个函数来查找字符串数组中的最长公共前缀。如果不存在公共前缀，则返回""
+     * 输入: ["flower","flow","flight"]
+     * 输出: "fl"
+     *
+     * @param strs 字符串数组
+     * @return 最长公共前缀
+     */
+    public String samePrefixStr(String[] strs) {
+        // 查找字符串中长度最新的字符串
+        String minStr = getMinStr(strs);
+
+        // 得到最小字符列表
+        char[] chars = minStr.toCharArray();
+
+        int index = 0;
+        for (char c : chars) {
+            boolean isSame = isSameChar(strs, chars[index], index);
+            // 不同时，跳出
+            if (!isSame) {
+                break;
+            }
+            index++;
+        }
+
+        return index == 0 ? "" : minStr.substring(0, index);
+    }
+
+    /**
+     * 字符是否相同
+     *
+     * @param strs  字符串数组
+     * @param c     字符
+     * @param index 字符所在索引位
+     * @return
+     */
+    private boolean isSameChar(String[] strs, char c, int index) {
+        for (String str : strs) {
+            if (str.charAt(index) != c) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 获取最小字符串
+     *
+     * @param strs 字符串数组
+     * @return 最小字符串
+     */
+    private String getMinStr(String[] strs) {
+        String minStr = strs.length > 0 ? strs[0] : "";
+        for (int index = 1; index < strs.length; index++) {
+            if (strs[index].length() < minStr.length()) {
+                minStr = strs[index];
+            }
+        }
+        return minStr;
+    }
+
     private int getIndex(int[] arr, int targetValue) {
         for (int index = 0; index < arr.length; index++) {
             if (arr[index] == targetValue) {
