@@ -1,6 +1,7 @@
 package data.structure.array;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * @description: <p>数组系列算法</p>
@@ -108,6 +109,35 @@ public class ArrayDemo {
         }
 
         return index == 0 ? "" : minStr.substring(0, index);
+    }
+
+    /**
+     * #14 最长公共前缀
+     * 编写一个函数来查找字符串数组中的最长公共前缀。如果不存在公共前缀，则返回""
+     * 输入: ["flower","flow","flight"]
+     * 输出: "fl"
+     *
+     * @param strs 字符串数组
+     * @return 最长公共前缀
+     */
+    public String samePrefixStr2(String[] strs) {
+        if (strs.length == 0) {
+            return "";
+        }
+        String value = strs[0];
+        for (int index = 1; index < strs.length; index++) {
+            int j = 0;
+            for (; j < value.length() && j < strs[index].length(); j++) {
+                if (value.charAt(j) != strs[index].charAt(j)) {
+                    break;
+                }
+            }
+            value = value.substring(0, j);
+            if (Objects.equals("", value)) {
+                return "";
+            }
+        }
+        return value;
     }
 
     /**
