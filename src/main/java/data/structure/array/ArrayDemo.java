@@ -141,6 +141,35 @@ public class ArrayDemo {
     }
 
     /**
+     * # 122 买卖股票的最佳时机(给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。)
+     * 如果你最多只允许完成一笔交易（即买入和卖出一支股票），设计一个算法来计算你所能获取的最大利润。注意你不能在买入股票前卖出股票。
+     * 输入: [7,1,5,3,6,4]
+     * 输出: 7
+     * 解题要点: 只能买卖1只股票，可以多次交易；
+     *
+     * @param arr1 数组
+     * @return 收益
+     */
+    public int stockMaxProfit(int[] arr1) {
+        if (arr1.length < 2) {
+            return 0;
+        }
+
+        int i = 0;
+        int profit = 0;
+        while (i < arr1.length - 1) {
+            if (arr1[i] < arr1[i+1]) {
+                profit = profit + (arr1[i+1] - arr1[i]);
+            }
+            i++;
+        }
+        return profit;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new ArrayDemo().stockMaxProfit(new int[]{7,1,5,3,6,4}));;
+    }
+    /**
      * 字符是否相同
      *
      * @param strs  字符串数组
