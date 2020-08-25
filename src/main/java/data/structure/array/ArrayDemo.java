@@ -194,6 +194,29 @@ public class ArrayDemo {
     }
 
     /**
+     * #27：移除元素(给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度)
+     * 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
+     * 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。
+     *
+     * @param arr 数组
+     * @param val 移除元素的数值
+     * @return 剩余数组的长度
+     */
+    public int removeElement(int[] arr, int val) {
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
+        int j = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != val) {
+                arr[j] = arr[i];
+                j++;
+            }
+        }
+        return j;
+    }
+
+    /**
      * 第一步: [1,2,3,4,5,6,7] 0、6
      * 1、len = 7;
      * 最后得到[7,6,5,4,3,2,1]
@@ -202,9 +225,9 @@ public class ArrayDemo {
      * 第三步: 反转len - k个元素 [5,6,7,4,3,2,1] 3 6
      * 得到:[7,6,5,1,2,3,4]
      *
-     * @param arr 数组
+     * @param arr   数组
      * @param start 起始位置
-     * @param end 终止位置
+     * @param end   终止位置
      */
     private void reverse(int[] arr, int start, int end) {
         int len = end - start + 1;
