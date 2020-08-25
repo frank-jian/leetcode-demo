@@ -1,5 +1,7 @@
 package data.structure.array;
 
+import com.alibaba.fastjson.JSON;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -158,8 +160,8 @@ public class ArrayDemo {
         int i = 0;
         int profit = 0;
         while (i < arr1.length - 1) {
-            if (arr1[i] < arr1[i+1]) {
-                profit = profit + (arr1[i+1] - arr1[i]);
+            if (arr1[i] < arr1[i + 1]) {
+                profit = profit + (arr1[i + 1] - arr1[i]);
             }
             i++;
         }
@@ -167,8 +169,52 @@ public class ArrayDemo {
     }
 
     public static void main(String[] args) {
-        System.out.println(new ArrayDemo().stockMaxProfit(new int[]{7,1,5,3,6,4}));;
+        new ArrayDemo().rotateList(new int[]{1, 2, 3, 4, 5, 6, 7}, 3);
     }
+
+    /**
+     * #189: 旋转数组(给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数)
+     * 输入: [1,2,3,4,5,6,7] 和 k = 3
+     * 输出: [5,6,7,1,2,3,4]
+     *
+     * @param arr  数组
+     * @param step 向右移动位置
+     * @return
+     */
+    public void rotateList(int[] arr, int step) {
+        int move = step % arr.length;
+        // 所有元素反转
+        reverse(arr, 0, arr.length - 1);
+
+        // 前k个元素反转
+        reverse(arr, 0, move - 1);
+
+        // len -k个元素反转
+        reverse(arr, move, arr.length - 1);
+    }
+
+    /**
+     * 第一步: [1,2,3,4,5,6,7] 0、6
+     * 1、len = 7;
+     * 最后得到[7,6,5,4,3,2,1]
+     * 第二步: 反转前k个元素, [7,6,5,4,3,2,1] 0、2
+     * 得到[5,6,7,4,3,2,1]
+     * 第三步: 反转len - k个元素 [5,6,7,4,3,2,1] 3 6
+     * 得到:[7,6,5,1,2,3,4]
+     *
+     * @param arr 数组
+     * @param start 起始位置
+     * @param end 终止位置
+     */
+    private void reverse(int[] arr, int start, int end) {
+        int len = end - start + 1;
+        for (int i = 0; i < len / 2; i++) {
+            int temp = arr[start + i];
+            arr[start + i] = arr[end - i];
+            arr[end - i] = temp;
+        }
+    }
+
     /**
      * 字符是否相同
      *
