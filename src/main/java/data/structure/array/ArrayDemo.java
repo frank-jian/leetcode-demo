@@ -217,6 +217,27 @@ public class ArrayDemo {
     }
 
     /**
+     * #66 加1(给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一)
+     * 输入: [1,2,3]
+     * 输出: [1,2,4]
+     * 解释: 输入数组表示数字 123。
+     * 特别注意: 输入[9] 输出[10]
+     *
+     * @param digits 数组
+     * @return
+     */
+    public int[] plusOne(int[] digits) {
+        for (int i = digits.length - 1; i >= 0; i--) {
+            digits[i]++;
+            digits[i] = digits[i] % 10;
+            if (digits[i] != 0) return digits;
+        }
+        digits = new int[digits.length + 1];
+        digits[0] = 1;
+        return digits;
+    }
+
+    /**
      * 第一步: [1,2,3,4,5,6,7] 0、6
      * 1、len = 7;
      * 最后得到[7,6,5,4,3,2,1]
