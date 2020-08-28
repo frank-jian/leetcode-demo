@@ -238,6 +238,24 @@ public class ArrayDemo {
     }
 
     /**
+     * #1 两数之和(给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。)
+     *
+     * @param arr    数组
+     * @param target 目标值
+     * @return 
+     */
+    public int[] twoSum(int[] arr, int target) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] + arr[j] == target) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * 第一步: [1,2,3,4,5,6,7] 0、6
      * 1、len = 7;
      * 最后得到[7,6,5,4,3,2,1]
