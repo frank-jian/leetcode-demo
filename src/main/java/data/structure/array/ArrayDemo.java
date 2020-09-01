@@ -2,7 +2,9 @@ package data.structure.array;
 
 import com.alibaba.fastjson.JSON;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -169,7 +171,7 @@ public class ArrayDemo {
     }
 
     public static void main(String[] args) {
-        new ArrayDemo().rotateList(new int[]{1, 2, 3, 4, 5, 6, 7}, 3);
+        System.out.println(JSON.toJSONString(new ArrayDemo().threeSum(new int[]{-1, 0, 1, 2, -1, 4})));
     }
 
     /**
@@ -242,7 +244,7 @@ public class ArrayDemo {
      *
      * @param arr    数组
      * @param target 目标值
-     * @return 
+     * @return
      */
     public int[] twoSum(int[] arr, int target) {
         for (int i = 0; i < arr.length; i++) {
@@ -253,6 +255,59 @@ public class ArrayDemo {
             }
         }
         return null;
+    }
+
+    /**
+     * #15 三数之和(给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。注意：答案中不可以包含重复的三元组)
+     * <p>
+     * 给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+     * 满足要求的三元组集合为：
+     * [
+     * [-1, 0, 1],
+     * [-1, -1, 2]
+     * ]
+     *
+     * @param arr
+     * @return
+     */
+    public List<List<Integer>> threeSum(int[] arr) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (arr == null || arr.length < 3) {
+            return result;
+        }
+        // 排序
+        Arrays.sort(arr);
+        for (int i = 0; i < arr.length; i++) {
+            // 若第1位大于0，按升序排序，三数之和不可能为0
+            if (arr[i] > 0) {
+                break;
+            }
+
+            // 两数相等跳过，避免出现相同的数字
+            if (i > 0 && arr[i] == arr[i - 1]) {
+                continue;
+            }
+
+            int left = i + 1;
+            int right = arr.length - 1;
+            while (left < right) {
+                int sum = arr[i] + arr[left] + arr[right];
+                if (sum == 0) {
+                    result.add(Arrays.asList(arr[i], arr[left], arr[right]));
+                    left++;
+                    right--;
+                    // 去重
+                    while (left < right && arr[left] == arr[left + 1]) left++;
+                    // 去重-
+                    while (left < right && arr[right] == arr[right - 1]) right--;
+                } else if (sum > 0) {
+                    right--;
+                } else if (sum < 0) {
+                    left++;
+                }
+            }
+        }
+        return result;
     }
 
     /**
