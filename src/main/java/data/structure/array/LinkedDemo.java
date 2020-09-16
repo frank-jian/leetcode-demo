@@ -1,5 +1,8 @@
 package data.structure.array;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @description: <p>链表相关练习</p>
  * @author: terui
@@ -78,4 +81,25 @@ public class LinkedDemo {
         return prehead.next;
     }
 
+    /**
+     * # 141 判定链表是否有环。给定一个链表，判断链表中是否有环。为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。
+     * 输入: 链表: [3,2,0,-4]，输入一个节点，判断这个链表是否有环
+     *
+     * @param head 头节点
+     * @return true 有环 false 无环
+     */
+    public boolean hasCycle(ListNode head) {
+        Set<ListNode> result = new HashSet();
+        if (head == null) {
+            return false;
+        }
+        while (head != null) {
+            if (result.contains(head)) {
+                return true;
+            }
+            result.add(head);
+            head = head.next;
+        }
+        return false;
+    }
 }
